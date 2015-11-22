@@ -1,0 +1,7 @@
+#!/bin/bash
+/etc/init.d/smb stop
+/etc/init.d/winbind stop
+/etc/init.d/nmb stop
+/etc/init.d/nmb start
+/etc/init.d/winbind start
+/etc/init.d/smb start
