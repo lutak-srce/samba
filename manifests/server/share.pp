@@ -3,6 +3,7 @@
 #
 define samba::server::share (
   $path,
+  $template            = 'samba/share.erb',
   $comment             = '',
   $valid_users         = '',
   $force_user          = '',
@@ -26,9 +27,9 @@ define samba::server::share (
   $public              = '',
 ) {
 
-  concat::fragment { "smb_conf:${name}":
+  ::concat::fragment { "smb_conf:${name}":
     target  => '/etc/samba/smb.conf',
-    content => template('samba/share.erb'),
+    content => template($template),
     order   => '200',
   }
 
