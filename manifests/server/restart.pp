@@ -1,4 +1,6 @@
-# Class: samba::server::restart
+#
+# = Class: samba::server::restart
+#
 class samba::server::restart {
 
   file { '/usr/local/bin/sambarestart':

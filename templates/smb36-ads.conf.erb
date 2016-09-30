@@ -29,7 +29,7 @@
 # setsebool -P samba_enable_home_dirs on
 #
 # If you create a new directory you want to share you should mark it as
-# "samba-share_t" so that selinux will let you write into it.
+# "samba_share_t" so that selinux will let you write into it.
 # Make sure not to do that on system directories as they may already have
 # been marked with othe SELinux labels.
 #
@@ -56,7 +56,7 @@
 
 [global]
 
-# ----------------------- Netwrok Related Options -------------------------
+# ----------------------- Network Related Options -------------------------
 #
 # workgroup = NT-Domain-Name or Workgroup-Name, eg: MIDEARTH
 #
@@ -87,10 +87,10 @@
 
 	# logs split per machine
 	log file = <%= @logfile %>
-	# max 50KB per log file, then rotate
-	max log size = 5000
-        log level = 0
-        syslog = 0
+	# max <%= (@max_log_size.to_i / 1024).to_i %>KB per log file, then rotate
+	max log size = <%= @max_log_size %>
+	log level = <%= @log_level %>
+	syslog = <%= @syslog %>
 
 # ----------------------- Standalone Server Options ------------------------
 #
@@ -131,11 +131,11 @@
 	realm = <%= @realm %>
 <% end -%>
 
-<% if @password_servers == [] then -%>
+<% if @password_server.nil? then -%>
 ;	password server = <NT-Server-Name>
-<% else %>
+<% else -%>
 	password server = <%= @password_servers.join(', ') %>
-<% end %>
+<% end -%>
 
 # ----------------------- Domain Controller Options ------------------------
 #
@@ -162,7 +162,11 @@
 ;	security = user
 ;	passdb backend = tdbsam
 
+<% if @domain_master.nil? then -%>
+;	domain master = yes
+<% else -%>
 	domain master = <%= @domain_master %>
+<% end -%>
 ;	domain logons = yes
 
 	# the login script name depends on the machine name
@@ -216,14 +220,20 @@
 
 	dns proxy = yes
 
-        allow trusted domains = <%= @allow_trusted_domains %>
-        idmap backend = <%= @idmap_backend %>
-        idmap uid = <%= @idmap_range %>
-        idmap gid = <%= @idmap_range %>
-        winbind use default domain = <%= @winbind_use_defdomain %>
-        winbind enum users = <%= @winbind_enum_users %>
-        winbind enum groups = <%= @winbind_enum_groups %>
-        winbind nested groups = <%= @winbind_nested_groups %>
+	allow trusted domains = <%= @allow_trusted_domains %>
+	idmap config <%= @workgroup %>:range = <%= @idmap_range %>
+	idmap config <%= @workgroup %>:schema_mode = rfc2307
+	idmap config <%= @workgroup %>:backend = rid
+	idmap config *:range = 50001-60000
+	idmap config * : backend = tdb
+	admin users = "@<%= @workgroup %>-domain admins"
+	winbind use default domain = <%= @winbind_use_defdomain %>
+	winbind enum users = <%= @winbind_enum_users %>
+	winbind enum groups = <%= @winbind_enum_groups %>
+	winbind nested groups = <%= @winbind_nested_groups %>
+	winbind offline logon = false
+	template shell = /bin/bash
+	map untrusted to domain = yes
 
 
 # --------------------------- Printing Options -----------------------------
@@ -265,44 +275,3 @@
 
 #============================ Share Definitions ==============================
 
-# [homes]
-# 	comment = Home Directories
-# 	browseable = no
-# 	writable = yes
-# ;	valid users = %S
-# ;	valid users = MYDOMAIN\%S
-#
-# [printers]
-# 	comment = All Printers
-# 	path = /var/spool/samba
-# 	browseable = no
-# 	guest ok = no
-# 	writable = no
-# 	printable = yes
-
-# # Un-comment the following and create the netlogon directory for Domain Logons
-# ;	[netlogon]
-# ;	comment = Network Logon Service
-# ;	path = /var/lib/samba/netlogon
-# ;	guest ok = yes
-# ;	writable = no
-# ;	share modes = no
-#
-#
-# # Un-comment the following to provide a specific roving profile share
-# # the default is to use the user's home directory
-# ;	[Profiles]
-# ;	path = /var/lib/samba/profiles
-# ;	browseable = no
-# ;	guest ok = yes
-#
-#
-# # A publicly accessible directory, but read only, except for people in
-# # the "staff" group
-# ;	[public]
-# ;	comment = Public Stuff
-# ;	path = /home/samba
-# ;	public = yes
-# ;	writable = yes
-# ;	printable = no
-# ;	write list = +staff
