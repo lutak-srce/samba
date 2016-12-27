@@ -1,7 +1,16 @@
 #!/bin/bash
-/etc/init.d/smb stop
-/etc/init.d/winbind stop
-/etc/init.d/nmb stop
-/etc/init.d/nmb start
-/etc/init.d/winbind start
-/etc/init.d/smb start
+if [[ -f /etc/init.d/smb ]]; then
+   /etc/init.d/smb stop
+   /etc/init.d/winbind stop
+   /etc/init.d/nmb stop
+   /etc/init.d/nmb start
+   /etc/init.d/winbind start
+   /etc/init.d/smb start
+else
+   systemctl stop smb
+   systemctl stop winbind
+   systemctl stop nmb 
+   systemctl start nmb
+   systemctl start winbind
+   systemctl start smb
+fi
