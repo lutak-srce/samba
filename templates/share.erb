@@ -16,7 +16,9 @@
 <% if @wide_links      != '' then %>	wide links           = <%=  @wide_links      + "\n" %><% end -%>
 <% if @hide_files      != '' then %>	hide files           = <%=  @hide_files      + "\n" %><% end -%>
 <% if @veto_files      != '' then %>	veto files           = <%=  @veto_files      + "\n" %><% end -%>
+<% if @veto_oplock_files != '' then %>	veto oplock files    = <%=  @veto_oplock_files + "\n" %><% end -%>
 <% if @dont_descend    != '' then %>	dont descend         = <%=  @dont_descend    + "\n" %><% end -%>
+<% if @case_sensitive  != '' then %>	case sensitive       = <%=  @case_sensitive  + "\n" %><% end -%>
 <% if @printable       != '' then %>	printable            = <%=  @printable       + "\n" %><% end -%>
 <% if @opslocks        != '' then %>	opslocks             = <%=  @opslocks        + "\n" %><% end -%>
 <% if @strict_locking  != '' then %>	strict locking       = <%=  @strict_locking  + "\n" %><% end -%>
