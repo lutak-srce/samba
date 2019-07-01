@@ -145,7 +145,10 @@ class samba::server (
     exec { 'join_active_directory_domain' :
       command => "/usr/bin/net ads join -U ${ad_user}%${ad_password}",
       onlyif  => '/usr/bin/net ads testjoin -k 2>&1 | /bin/grep -q "not valid"',
-      require => Exec['generate_krb_ticket'],
+      require => [
+        Exec['generate_krb_ticket'],
+        Concat['/etc/samba/smb.conf'],
+      ],
       notify  => Service['smb', 'winbind'],
     }
   }
