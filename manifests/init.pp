@@ -32,7 +32,7 @@ class samba (
   }
 
   package { 'cifs-utils' :
-    ensure => present, 
+    ensure => present,
     name   => $package_cifs,
     noop   => $noops,
   }
