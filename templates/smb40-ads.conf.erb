@@ -301,6 +301,17 @@
 ;	map system = no
 ;	store dos attributes = yes
 
+# --------------------------- Other options ---------------------------------
+#
+# Everything not covered by previous sections.
+
+
+<% if @kernel_oplocks -%>
+	kernel oplocks = <%= @kernel_oplocks %>
+<% end -%>
+<% if @socket_options -%>
+	socket options = <%= @socket_options %>
+<% end -%>
 
 #============================ Share Definitions ==============================
 

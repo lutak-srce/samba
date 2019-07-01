@@ -33,6 +33,8 @@ class samba::server (
   $winbind_nested_groups  = 'yes',
   $ad_user                = 'Administrator',
   $ad_password            = 'dummypass',
+  $kernel_oplocks         = undef,
+  $socket_options         = undef,
   $noops                  = undef,
 ) inherits samba::params {
 
