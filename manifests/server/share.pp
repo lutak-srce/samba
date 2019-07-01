@@ -17,6 +17,7 @@ define samba::server::share (
   $force_security_mode = '',
   $directory_mode      = '',
   $case_sensitive      = '',
+  $store_dos_attr      = '',
   $guest_ok            = 'no',
   $guest_only          = 'no',
   $delete_readonly     = '',
