@@ -1,14 +1,17 @@
 [<%= @name %>]
-	path                 = <%= @path %>
-<% if @comment         != '' then %>	comment              = <%= @comment          + "\n" %><% end -%>
-<% if @valid_users     != '' then %>	valid users          = <%=  @valid_users     + "\n" %><% end -%>
-<% if @force_user      != '' then %>	force user           = "<%= @force_user  %>"<% end %>
-<% if @force_group     != '' then %>	force group          = "<%= @force_group %>"<% end %>
+<% if @path != 'unset'       then %>	path                 = <%= @path        + "\n" %><% end -%>
+<% if @comment         != '' then %>	comment              = <%= @comment     + "\n" %><% end -%>
+<% if @valid_users     != '' then %>	valid users          = <%= @valid_users + "\n" %><% end -%>
+<% if @force_user      != '' then %>	force user           = <%= @force_user  + "\n" %><% end -%>
+<% if @force_group     != '' then %>	force group          = <%= @force_group + "\n" %><% end -%>
 	browseable           = <%= @browseable %>
+<% if @read_only       != '' then %>	read only            = <%= @read_only + "\n" %><% end -%>
 	writeable            = <%= @writeable %>
 <% if @force_mode      != '' then %>	force mode           = <%=  @force_mode      + "\n" %><% end -%>
+<% if @create_mask     != '' then %>	create mask          = <%=  @create_mask     + "\n" %><% end -%>
 <% if @force_dir_mode  != '' then %>	force directory mode = <%=  @force_dir_mode  + "\n" %><% end -%>
 <% if @force_security_mode != '' then %>	force security mode  = <%=  @force_security_mode + "\n" %><% end -%>
+<% if @directory_mode  != '' then %>	directory mode       = <%=  @directory_mode  + "\n" %><% end -%>
 <% if @guest_ok        != '' then %>	guest ok             = <%=  @guest_ok        + "\n" %><% end -%>
 <% if @guest_only      != '' then %>	guest only           = <%=  @guest_only      + "\n" %><% end -%>
 <% if @delete_readonly != '' then %>	delete readonly      = <%=  @delete_readonly + "\n" %><% end -%>
@@ -16,7 +19,9 @@
 <% if @wide_links      != '' then %>	wide links           = <%=  @wide_links      + "\n" %><% end -%>
 <% if @hide_files      != '' then %>	hide files           = <%=  @hide_files      + "\n" %><% end -%>
 <% if @veto_files      != '' then %>	veto files           = <%=  @veto_files      + "\n" %><% end -%>
+<% if @veto_oplock_files != '' then %>	veto oplock files    = <%=  @veto_oplock_files + "\n" %><% end -%>
 <% if @dont_descend    != '' then %>	dont descend         = <%=  @dont_descend    + "\n" %><% end -%>
+<% if @case_sensitive  != '' then %>	case sensitive       = <%=  @case_sensitive  + "\n" %><% end -%>
 <% if @printable       != '' then %>	printable            = <%=  @printable       + "\n" %><% end -%>
 <% if @opslocks        != '' then %>	opslocks             = <%=  @opslocks        + "\n" %><% end -%>
 <% if @strict_locking  != '' then %>	strict locking       = <%=  @strict_locking  + "\n" %><% end -%>
