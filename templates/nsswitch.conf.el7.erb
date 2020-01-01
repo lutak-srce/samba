@@ -19,6 +19,7 @@
 #	db			Use the local database (.db) files
 #	compat			Use NIS on compat mode
 #	hesiod			Use Hesiod for user lookups
+#	sss			Use sssd (System Security Services Daemon)
 #	[NOTFOUND=return]	Stop searching if not found so far
 #
 
@@ -33,7 +34,7 @@
 passwd:     files sss winbind
 shadow:     files sss winbind
 group:      files sss winbind
-#initgroups: files
+#initgroups: files sss
 
 #hosts:     db files nisplus nis dns
 hosts:      files dns myhostname
@@ -59,6 +60,6 @@ netgroup:   files sss
 
 publickey:  nisplus
 
-automount:  files
+automount:  files nisplus sss
 aliases:    files nisplus
 
