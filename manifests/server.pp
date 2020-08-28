@@ -31,6 +31,7 @@ class samba::server (
   $winbind_enum_users     = 'yes',
   $winbind_enum_groups    = 'yes',
   $winbind_nested_groups  = 'yes',
+  $winbind_expand_groups  = '0',
   $ad_user                = 'Administrator',
   $ad_password            = 'dummypass',
   $kernel_oplocks         = undef,
