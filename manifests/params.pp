@@ -39,6 +39,16 @@ class samba::params {
       $file_smb_conf_path          = '/etc/samba/smb.conf'
       $file_smb_conf_template      = 'samba/smb40-ads.conf.erb'
     }
+    /^8.*/: {
+      $package_client          = 'samba-client'
+      $package_server          = 'samba'
+      $package_winbind         = 'samba-winbind'
+      $package_winbind_clients = 'samba-winbind-clients'
+      $package_cifs            = 'cifs-utils'
+      $file_nsswitch_conf_template = ''
+      $file_smb_conf_path          = '/etc/samba/smb.conf'
+      $file_smb_conf_template      = 'samba/smb40-ads.conf.erb'
+    }
   }
 
   $service_smb     = 'smb'
